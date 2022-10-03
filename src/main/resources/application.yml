@@ -1,0 +1,22 @@
+
+server:
+  port: 2223
+
+spring:
+  jpa:
+    database: default
+  datasource:
+    username: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: ${MySQL-PASSWORD}
+    url: jdbc:mysql://localhost:3306/weather
+
+
+retrofit:
+  integration:
+    cacheSizeInMb: 50
+    cacheDirectory: "retrofit/cache"
+    longRunningReadTimeout: 300
+    endpoints:
+      - serverName: dataLogic
+      - baseUrl: http://localhost:2122/
