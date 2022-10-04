@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 server:
   port: 2223
@@ -12,51 +11,12 @@ spring:
     password: ${MySQL-PASSWORD}
     url: jdbc:mysql://localhost:3306/weather
 
-=======
-app:
-  version: @project.version@
-  buildtime: @maven.build.timestamp@
-  pooled-db: true
-  datasource:
-    h2datasource:
-      url: jdbc:mysql://localhost:3306/weather
-      username: root
-      password: ${MySQL-PASSWORD}
-      configuration:
-        pool-size: 30
-    cache-db:
-      url: jdbc:mysql://localhost:3306/weather
-      username: root
-      password: ${MySQL-PASSWORD}
-      configuration:
-        pool-size: 30
-server:
-  port: 2122
->>>>>>> github/master
 
 retrofit:
   integration:
     cacheSizeInMb: 50
     cacheDirectory: "retrofit/cache"
     longRunningReadTimeout: 300
-<<<<<<< HEAD
     endpoints:
       - serverName: dataLogic
       - baseUrl: http://localhost:2122/
-=======
-
-spring:
-  jpa:
-    database: default
-  flyway:
-    out-of-order: true
-    ignore-future-migrations: true
-    ignore-ignored-migrations: true
-    ignore-missing-migrations: true
-    baseline-on-migrate: true
-  datasource:
-    url: jdbc:mysql://localhost:3306/weather
-    username: root
-    password: ${MySQL-PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
->>>>>>> github/master
