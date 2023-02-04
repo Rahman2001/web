@@ -1,6 +1,6 @@
 
 server:
-  port: 2223
+  port: 2023
 
 spring:
   jpa:
@@ -17,6 +17,15 @@ retrofit:
     cacheSizeInMb: 50
     cacheDirectory: "retrofit/cache"
     longRunningReadTimeout: 300
-    endpoints:
-      - serverName: dataLogic
-      - baseUrl: http://localhost:2122/
+  endpoints:
+    - serviceName: currentWeather
+      baseUrl: http://localhost:2122/
+      path: weather
+    - serviceName: hourlyWeather
+      baseUrl: http://localhost:2122/
+      path: weather/hourly
+    - serviceName: dailyWeather
+      baseUrl: http://localhost:2122/
+      path: weather/daily
+    - serviceName: ipApi
+      baseUrl: http://ip-api.com/json/
