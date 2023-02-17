@@ -26,7 +26,7 @@ public class WeatherAPIClientServiceImpl{
     @Autowired
     public WeatherAPIClientServiceImpl(final WeatherAPIClientService weatherRestAPI,
                                        final @Qualifier("restEndpoints") List<EndpointProperty> restEndpoints,
-                                       final ServiceUtil serviceUtil) {
+                                       @Qualifier("serviceUtil") final ServiceUtil serviceUtil) {
         this.weatherRestAPI = weatherRestAPI;
         Map<String, EndpointProperty> map = serviceUtil.groupsEndpoints(restEndpoints);
         this.currentWeatherEndpoint = map.get("currentWeather");

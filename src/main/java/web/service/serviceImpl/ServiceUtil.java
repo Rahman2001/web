@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 import static com.google.common.collect.ImmutableMap.toImmutableMap;
 
-@Service
+@Service("serviceUtil")
 public class ServiceUtil {
     public Map<String, EndpointProperty> groupsEndpoints(List<EndpointProperty> endpointProperties) {
         return endpointProperties.stream().collect(toImmutableMap(EndpointProperty::getServiceName, Function.identity()));

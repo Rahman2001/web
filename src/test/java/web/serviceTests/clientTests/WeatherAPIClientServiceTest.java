@@ -27,9 +27,9 @@ public class WeatherAPIClientServiceTest {
 
     @Test
     public void weatherClientTest() throws ExecutionException, InterruptedException {
-        CompletableFuture<Weather> currentWeather = weatherAPIClientService.getCurrentWeatherByCity("/weather", "Ankara");
+        CompletableFuture<Weather> currentWeather = weatherAPIClientService.getCurrentWeatherByCity("/weather", "Oslo");
         assertNotNull(currentWeather);
-        assertEquals("Ankara", currentWeather.get().getCity());
+        assertEquals("Oslo", currentWeather.get().getCity());
     }
     @Test
     public void weatherClientTest2() throws ExecutionException, InterruptedException {

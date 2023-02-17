@@ -39,7 +39,7 @@ public class RestServiceForRetrofit {
                                   @NonNull @Value("${retrofit.integration.cacheSizeInMb}") final Long RETROFIT_CACHE_SIZE,
                                   @NonNull @Value("${retrofit.integration.cacheDirectory}") String RETROFIT_CACHE_DIRECTORY,
                                   @NonNull @Value("${retrofit.integration.longRunningReadTimeout}") Long RETROFIT_LONG_READING_TIMEOUT,
-                                  ServiceUtil serviceUtil)
+                                  @Qualifier("serviceUtil") final ServiceUtil serviceUtil)
     {
         this.RETROFIT_CACHE_SIZE = RETROFIT_CACHE_SIZE;
         this.RETROFIT_CACHE_DIRECTORY = new File(RETROFIT_CACHE_DIRECTORY);

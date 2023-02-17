@@ -1,18 +1,15 @@
 package web.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import web.service.deserializers.CurrentWeatherDeserializer;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
-//@JsonDeserialize(using = CurrentWeatherDeserializer.class)
 public class Weather {
     @JsonProperty(value = "api_name")
     private String api_name;
