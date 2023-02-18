@@ -1,23 +1,30 @@
 package web.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder(toBuilder = true)
-public class HourlyWeather extends Weather {
-    private String api_name;
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class HourlyWeather {
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String weatherForecasted = "hourly_weather";
     @JsonProperty("cnt")
     private Integer forecastedTotalHours;
     @JsonProperty("list")
     private List<Weather> hourlyWeatherList;
+
+    public List<Weather> getHourlyWeatherList() {
+        this.hourlyWeatherList = hourlyWeatherList.stream().peek(weather -> weather.setWeatherForecasted("hourly_weather")).toList();
+        return this.hourlyWeatherList;
+    }
 }

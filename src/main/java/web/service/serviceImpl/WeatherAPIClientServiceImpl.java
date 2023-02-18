@@ -1,6 +1,7 @@
 package web.service.serviceImpl;
 
 import web.config.EndpointProperty;
+import web.model.HourlyWeather;
 import web.model.UserLocation;
 import web.model.Weather;
 import web.service.clientService.WeatherAPIClientService;
@@ -34,9 +35,9 @@ public class WeatherAPIClientServiceImpl{
         this.dailyWeatherEndpoint = map.get("dailyWeather");
     }
 
-    public List<? extends Weather> getAllWeatherData(UserLocation userLocation) {
+    public List<?> getAllWeatherData(UserLocation userLocation) {
         try {
-            List<CompletableFuture<? extends Weather>> weathers = getAllWeatherDataByCurrentLocation(userLocation);
+            List<CompletableFuture<?>> weathers = getAllWeatherDataByCurrentLocation(userLocation);
             return combineAllWeatherData(weathers)
                     .thenApply(futureFunction -> weathers.stream()
                             .filter(Objects::nonNull)
@@ -47,9 +48,9 @@ public class WeatherAPIClientServiceImpl{
             return null;
         }
     }
-    public List<? extends Weather> getAllWeatherData(String city) {
+    public List<?> getAllWeatherData(String city) {
         try {
-            List<CompletableFuture<? extends Weather>> weathers = getAllWeatherDataByCity(city); //we get list CompletableFutures first and pass it to allOf()
+            List<CompletableFuture<?>> weathers = getAllWeatherDataByCity(city); //we get list CompletableFutures first and pass it to allOf()
             return combineAllWeatherData(weathers) // if all CompletableFutures are complete, thenApply() method is performed.
                     .thenApply(futureFunction -> weathers.stream() //since allOf() guarantees the completion, we can use 'weathers'
                             .filter(Objects::nonNull)
@@ -60,7 +61,7 @@ public class WeatherAPIClientServiceImpl{
             return null;
         }
     }
-    private List<CompletableFuture<? extends Weather>> getAllWeatherDataByCurrentLocation(UserLocation userLocation) {
+    private List<CompletableFuture<?>> getAllWeatherDataByCurrentLocation(UserLocation userLocation) {
         return List.of(
                 this.weatherRestAPI.getCurrentWeather(currentWeatherEndpoint.getPath(), userLocation).exceptionally(exception -> {
                     log.error("Something went wrong with CURRENT WEATHER data!", exception);
@@ -76,7 +77,7 @@ public class WeatherAPIClientServiceImpl{
                 })
         );
     }
-    private List<CompletableFuture<? extends Weather>> getAllWeatherDataByCity(String city) {
+    private List<CompletableFuture<?>> getAllWeatherDataByCity(String city) {
         return List.of(
                 this.weatherRestAPI.getCurrentWeatherByCity(currentWeatherEndpoint.getPath(), city).exceptionally(exception -> {
                     log.error("Something went wrong with CURRENT WEATHER data!", exception);
@@ -92,7 +93,7 @@ public class WeatherAPIClientServiceImpl{
                 })
         );
     }
-    private CompletableFuture<Void> combineAllWeatherData(List<CompletableFuture<? extends Weather>> allWeatherData) { // allOf() is useful since it waits until all CompletableFutures complete.
+    private CompletableFuture<Void> combineAllWeatherData(List<CompletableFuture<?>> allWeatherData) { // allOf() is useful since it waits until all CompletableFutures complete.
         return CompletableFuture.allOf(allWeatherData.toArray(new CompletableFuture[allWeatherData.size()]));
     }
 }

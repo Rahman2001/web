@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(classes = {RetrofitProperties.class, RetrofitConfig.class, WeatherAPIClientServiceImpl.class})
+@SpringBootTest(classes = {RetrofitProperties.class, RetrofitConfig.class, WeatherAPIClientServiceImpl.class, ServiceUtil.class})
 public class WeatherAPIServiceImplTest {
     @MockBean
     private WeatherAPIClientService weatherClient;
@@ -41,8 +41,7 @@ public class WeatherAPIServiceImplTest {
                 .thenReturn(CompletableFuture.supplyAsync(HourlyWeather::new));
         when(weatherClient.getDailyWeather(anyString(), any(UserLocation.class)))
                 .thenReturn(CompletableFuture.supplyAsync(DailyWeather::new));
-        List<? extends Weather> weathers = this.weatherService.getAllWeatherData(UserLocation.builder().build());
+        List<?> weathers = this.weatherService.getAllWeatherData(UserLocation.builder().build());
         assertNotNull(weathers);
-
     }
 }

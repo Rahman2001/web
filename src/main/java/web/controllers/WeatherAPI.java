@@ -25,14 +25,14 @@ public class WeatherAPI {
         this.userLocation = ipService.getUserLocation();
     }
 
-    @GetMapping
-    public ResponseEntity<List<? extends Weather>> getWeatherByCurrentLocation() {
-        List<? extends Weather> weathers = this.weatherService.getAllWeatherData(this.userLocation);
-        return weathers != null && !weathers.isEmpty() ? ResponseEntity.ok(weathers) : ResponseEntity.badRequest().build();
+    @GetMapping("")
+    public ResponseEntity<List<?>> getWeatherByCurrentLocation() {
+        List<?> weathers = this.weatherService.getAllWeatherData(this.userLocation);
+        return weathers != null ? ResponseEntity.ok(weathers) : ResponseEntity.badRequest().build();
     }
     @GetMapping("/{city}")
-    public ResponseEntity<List<? extends Weather>> getWeatherByCity(@PathVariable("city") String city) {
-        List<? extends Weather> weathers = this.weatherService.getAllWeatherData(city);
+    public ResponseEntity<List<?>> getWeatherByCity(@PathVariable("city") String city) {
+        List<?> weathers = this.weatherService.getAllWeatherData(city);
         return weathers != null && !weathers.isEmpty() ? ResponseEntity.ok(weathers) : ResponseEntity.badRequest().build();
     }
 }

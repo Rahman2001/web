@@ -1,23 +1,29 @@
 package web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder(toBuilder = true)
-public class DailyWeather extends Weather{
-    private String api_name;
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DailyWeather{
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String weatherForecasted = "daily_weather";
     @JsonProperty("cnt")
     private Integer forecastedTotalDays;
     @JsonProperty("list")
     private List<Weather> dailyWeatherList;
+
+    public List<Weather> getDailyWeatherList() {
+        this.dailyWeatherList = dailyWeatherList.stream().peek(weather -> weather.setWeatherForecasted("daily_weather")).toList();
+        return this.dailyWeatherList;
+    }
 }
